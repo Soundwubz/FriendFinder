@@ -10,11 +10,37 @@
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+  <style>
+      #match-image {
+          width: 100%;
+      }
+  </style>
+
 </head>
 
 <body>
 
   <div class="container">
+
+    <a href="/"><button class="btn btn-primary">Home</button></a>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="matchModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Friend Matched!</h5>
+            </div>
+            <div class="modal-body">
+              <h2 id="match-name"></h2>
+              <img id="match-img">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <h2>Survey Questions</h2>
     <hr>
@@ -138,11 +164,14 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
+
+        <hr>
     </form>
+    <button class="btn" id="submit">Submit</button>
 
     <footer class="footer">
       <div class="container">
-        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a></p>
+        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/Soundwubz/FriendFinder">GitHub Repo</a></p>
       </div>
     </footer>
 
@@ -159,24 +188,35 @@
         return isValid;
       }
 
-      if(validateForm()) {
-        var userData = {
-          name: $("#name").val(),
-          photo: $("#photo").val(),
-          scores: [
-            $("#q1").val(),
-            $("#q2").val(),
-            $("#q3").val(),
-            $("#q4").val(),
-            $("#q5").val(),
-            $("#q6").val(),
-            $("#q7").val(),
-            $("#q8").val(),
-            $("#q9").val(),
-            $("#q10").val()
-          ]
-        };
-      }
+      $('#submit').on("click", () => {
+
+        if(validateForm()) {
+            var userData = {
+                name: $("#name").val(),
+                photo: $("#photo").val(),
+                scores: [
+                    $("#q1").val(),
+                    $("#q2").val(),
+                    $("#q3").val(),
+                    $("#q4").val(),
+                    $("#q5").val(),
+                    $("#q6").val(),
+                    $("#q7").val(),
+                    $("#q8").val(),
+                    $("#q9").val(),
+                    $("#q10").val()
+                ]
+            };
+
+            $.post("/api/friends", userData, (data) => {
+                console.log('returned data:', data);
+
+                $("#match-name").text(data.name);
+                $("#match-img").attr('src', data.photo);
+                $('#matchModal').modal('show');
+            });
+        }
+    })
   </script>
 
 </body>

@@ -17,7 +17,7 @@ let friends = [
     },    
     {
         "name":"Amy",
-        "photo":"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fcringe&psig=AOvVaw2mHnFnOY5zo7fQL674GHqp&ust=1585135431616000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDM_-7_sugCFQAAAAAdAAAAABAT",
+        "photo":"https://i.kym-cdn.com/entries/icons/original/000/013/564/doge.jpg",
         "scores":[
             3,
             2,
